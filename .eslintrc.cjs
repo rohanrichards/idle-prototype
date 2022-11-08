@@ -14,7 +14,7 @@ module.exports = {
 	},
 	rules: {
 		semi: ['error', 'always'],
-		'no-plusplus': ['error', { "allowForLoopAfterthoughts": true }],
+		'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
 		'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
 		'tsdoc/syntax': 'warn',
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
@@ -36,8 +36,8 @@ module.exports = {
 				'no-return-assign': 'off',
 				'@typescript-eslint/no-unsafe-member-access': 'off',
 				'@typescript-eslint/no-unsafe-argument': 'off',
-				"no-use-before-define": "off",
-    			"@typescript-eslint/no-use-before-define": "off",
+				'no-use-before-define': 'off',
+				'@typescript-eslint/no-use-before-define': 'off',
 				'@typescript-eslint/restrict-template-expressions': [
 					'warn',
 					{
