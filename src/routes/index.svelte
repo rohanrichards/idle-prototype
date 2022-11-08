@@ -15,12 +15,18 @@
 	import HeadTags from '$components/head-tags/HeadTags.svelte';
 	import BlogPost from '$components/blog-post/BlogPost.svelte';
 	import ProjectCard from '$components/project-card/ProjectCard.svelte';
+	import CooldownButtonGenerator from '$lib/shared/components/generators/CooldownButtonGenerator.svelte';
+	import CooldownButtonEfficiencyUpgrader from '$lib/shared/components/upgraders/CooldownButtonEfficiencyUpgrader.svelte';
+	import CooldownButtonStuffUpgrader from '$lib/shared/components/upgraders/CooldownButtonStuffUpgrader.svelte';
+	import NumberDisplay from '$lib/shared/components/displays/NumberDisplay.svelte';
 
 	// Models
 	import type { IMetaTagProperties } from '$models/interfaces/imeta-tag-properties.interface';
 	import type { IProjectCard } from '$models/interfaces/iproject-card.interface';
 	import type { IBlogPostSummary } from '$models/interfaces/iblog-post-summary.interface';
 	import ExternalLink from '$ui/components/external-link/ExternalLink.svelte';
+	import CooldownButtonClickerUpgrader from '$lib/shared/components/upgraders/CooldownButtonClickerUpgrader.svelte';
+	import Error from './__error.svelte';
 	// End: Local Imports
 
 	// Exports
@@ -32,45 +38,37 @@
 		keywords: ['sveltekit', 'sveltekit starter', 'sveltekit starter home'],
 	};
 
-	const blogs: IBlogPostSummary[] = [
-		{
-			title: 'Welcome to my site!',
-			summary:
-				'Fusce ac lorem sit amet metus vestibulum dapibus ut at mauris. Etiam ut pulvinar nibh.',
-		},
-		{
-			title: 'A second article',
-			summary:
-				'Fusce ac lorem sit amet metus vestibulum dapibus ut at mauris. Etiam ut pulvinar nibh.',
-		},
-		{
-			title: 'Yet another article',
-			summary:
-				'Fusce ac lorem sit amet metus vestibulum dapibus ut at mauris. Etiam ut pulvinar nibh.',
-		},
-	];
+	const buttonSettings = {
+		baseStuffPerTick: 1,
+		stuffPerTick: 1,
+		baseMsPerTick: 3000,
+		msPerTick: 3000,
+		reClicker: false,
+		autoClicker: false,
+	};
 
-	const projects: IProjectCard[] = [
-		{
-			title: 'Sveltekit Starter',
-			description:
-				'Sveltekit starter project created with sveltekit, typescript, tailwindcss, postcss, husky, and storybook. The project has the structure set up for the scaleable web application.',
-			slug: 'https://github.com/navneetsharmaui/sveltekit-starter',
-			icon: '',
+	const buttunUpgradeSettings = {
+		efficiency: {
+			multiplier: 1.07,
+			baseCost: 5,
+			benefit: 0.05,
+			levels: 0,
 		},
-		{
-			title: 'Sveltekit Blog',
-			description:
-				'Sveltekit Blog starter project created with sveltekit, typescript, tailwindcss, postcss, husky, and storybook. The project has the structure set up for the scaleable web application and blog.',
-			slug: 'https://github.com/navneetsharmaui/sveltekit-blog',
-			icon: '',
+		stuff: {
+			multiplier: 1.07,
+			baseCost: 10,
+			benefit: 1,
+			levels: 0,
 		},
-	];
-	// End: Local component properties
+		clicks: {
+			reClickerCost: 100,
+			autoClickerCost: 1000,
+		},
+	};
 
-	// Start: Local component methods
-
-	// End: Local component methods
+	const resources = {
+		stuff: 1000,
+	};
 </script>
 
 <!-- Start: Header Tag -->
@@ -78,51 +76,41 @@
 <!-- End: Header Tag -->
 
 <!-- Start: Home Page container -->
-<div class="flex flex-col justify-center items-start w-full mx-auto">
-	<h1 class="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
-		Hey, I’m Sveltekit Starter
-	</h1>
-	<p class="prose text-gray-600 dark:text-gray-400 mb-16">
-		I'm a developer and creator. I work as the Software Developer at XYZ. You’ve found my
-		personal slice of the internet –&nbsp; while you're here
-		<a
-			sveltekit:prefetch
-			href="/about"
-			aria-label="about me"
-			class="text-blue-700 hover:text-blue-800 transition">learn more about me.</a
-		>
-	</p>
+Stuff: <NumberDisplay value="{resources.stuff}" />
+<dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-4">
+	<CooldownButtonGenerator
+		stuffPerTick="{buttonSettings.stuffPerTick}"
+		msPerTick="{buttonSettings.msPerTick}"
+		bind:stuff="{resources.stuff}"
+		reClicker="{buttonSettings.reClicker}"
+		autoClicker="{buttonSettings.autoClicker}"
+	/>
 
-	<p class="prose text-gray-600 dark:text-gray-400 mb-16">
-		If you want to use the pre setup blog template then you can use
-		<ExternalLink
-			href="{'https://github.com/navneetsharmaui/sveltekit-blog'}"
-			ariaLabel="{'Sveltekit blog'}">Sveltekit Blog Template</ExternalLink
-		>
-	</p>
+	<CooldownButtonEfficiencyUpgrader
+		multiplier="{buttunUpgradeSettings.efficiency.multiplier}"
+		baseCost="{buttunUpgradeSettings.efficiency.baseCost}"
+		benefit="{buttunUpgradeSettings.efficiency.benefit}"
+		bind:levels="{buttunUpgradeSettings.efficiency.levels}"
+		bind:stuff="{resources.stuff}"
+		bind:msPerTick="{buttonSettings.msPerTick}"
+	/>
 
-	<!-- Start: Popular Blog Section -->
-	<h2 class="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
-		Most Recent
-	</h2>
+	<CooldownButtonStuffUpgrader
+		multiplier="{buttunUpgradeSettings.stuff.multiplier}"
+		baseCost="{buttunUpgradeSettings.stuff.baseCost}"
+		benefit="{buttunUpgradeSettings.stuff.benefit}"
+		bind:levels="{buttunUpgradeSettings.stuff.levels}"
+		bind:stuff="{resources.stuff}"
+		bind:stuffPerTick="{buttonSettings.stuffPerTick}"
+	/>
 
-	{#if blogs.length > 0}
-		{#each blogs as blog}
-			<BlogPost blog="{blog}" />
-		{/each}
-	{/if}
-	<!-- End: Popular Blog Section -->
+	<CooldownButtonClickerUpgrader
+		bind:stuff="{resources.stuff}"
+		reClickerCost="{buttunUpgradeSettings.clicks.reClickerCost}"
+		autoClickerCost="{buttunUpgradeSettings.clicks.autoClickerCost}"
+		bind:reClicker="{buttonSettings.reClicker}"
+		bind:autoClicker="{buttonSettings.autoClicker}"
+	/>
+</dl>
 
-	<!-- Start: Top Projects -->
-	<h2 class="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-8 text-black dark:text-white">
-		Top Projects
-	</h2>
-
-	{#if projects.length > 0}
-		{#each projects as project}
-			<ProjectCard project="{project}" />
-		{/each}
-	{/if}
-	<!-- End: Top Projects -->
-</div>
 <!-- End: Home Page container -->

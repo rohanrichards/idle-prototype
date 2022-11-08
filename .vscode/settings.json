@@ -10,5 +10,19 @@
 		"markdown",
 		"svelte"
 	],
-	"compile-hero.disable-compile-files-on-did-save-code": true
+	"compile-hero.disable-compile-files-on-did-save-code": true,
+
+	"javascript.format.enable": false,
+	"typescript.format.enable": false,
+	"eslint.format.enable": true,
+	"eslint.lintTask.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"eslint.workingDirectories": [
+		{
+			"mode": "auto"
+		}
+	],
+	"eslint.validate": ["javascript", "typescript", "javascriptreact", "typescriptreact", "svelte"]
 }

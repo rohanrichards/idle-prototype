@@ -33,16 +33,17 @@
 	<!-- Start: Header Navigation -->
 	<Header on:toggleTheme="{(e) => toggleThemeMode(e)}" useThemeModeButton="{true}" />
 	<!-- End: Header Navigation -->
-	<main class="flex flex-col w-full bg-white dark:bg-black min-w-full min-h-full max-h-full">
-		<article
-			class="relative md:ml-64 flex flex-col justify-center items-start w-[calc(100vw - 15rem - 1rem)] p-0 h-auto m-0 px-4 overflow-y-auto"
-		>
-			<!-- Start: Defaull layout slot -->
-			<slot />
-			<!-- End: Defaull layout slot -->
-			<!-- Start: Footer -->
-			<Footer />
-			<!-- End: Footer -->
-		</article>
+	<main
+		class="flex flex-col w-full bg-white dark:bg-black min-w-full min-h-full max-h-full justify-center items-center"
+	>
+		<div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow w-8/12">
+			<div class="px-4 py-5 sm:px-6">
+				<h3 class="text-lg font-medium leading-6 text-gray-900">Idle Prototype</h3>
+			</div>
+			<div class="px-4 py-5 sm:p-6">
+				<!-- Content goes here -->
+				<slot />
+			</div>
+		</div>
 	</main>
 </div>
