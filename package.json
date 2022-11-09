@@ -1,42 +1,24 @@
 {
-	"name": "sveltekit-starter",
-	"description": "A sveltekit starter project with typescript, tailwindcss, postcss, scss, husky, and storybook setup",
+	"name": "open-idle",
+	"description": "An open source idle game built on SvelteKit with Tailwindcss",
 	"version": "1.0.0",
 	"author": {
-		"name": "Navneet Sharma",
-		"url": "https://navneetsharma.xyz",
-		"email": "navneetsharma.tech@gmail.com"
+		"name": "Rohan Richards",
+		"email": "rohan@betterscenes.com"
 	},
 	"license": "MIT",
 	"keywords": [
 		"sveltekit",
 		"typescript",
 		"svelte",
+		"tailwind",
 		"SSR",
-		"svelte-starter",
-		"sveltekit-starter",
-		"svelte-boilerplate",
-		"sveltekit-boilerplate",
-		"svelte boilerplate",
-		"sveltekit boilerplate",
-		"svelte-tailwind-boilerplate",
-		"svelte tailwind boilerplate",
-		"sveltekit tailwind boilerplate",
-		"svelte-ssr-starter",
-		"sveltekit-ssr-starter",
-		"svelte-pwa-starter",
-		"sveltekit-pwa-starter",
-		"starter-template",
-		"svelte ssr starter",
-		"sveltekit ssr starter",
-		"svelte pwa starter",
-		"sveltekit pwa starter",
-		"starter template",
-		"template"
+		"idle game",
+		"open source"
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/navneetsharmaui/sveltekit-starter.git"
+		"url": "git@github.com:rohanrichards/open-idle.git"
 	},
 	"scripts": {
 		"prepare": "husky install",
